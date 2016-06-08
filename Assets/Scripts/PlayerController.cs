@@ -6,8 +6,6 @@ public class PlayerController : MonoBehaviour {
 	public float reloadedSpan;
 	private float reloadingTime;
 	private bool canFire;
-	//プレイヤーが中心点からずれる実装をした時に用いる変数
-	public float y_offset;
 	public GameObject bullet;
 	SpriteRenderer sr;
 	public Sprite neutralSprite;
@@ -17,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 	Ray2D ray;
 	// Use this for initialization
 	void Start () {
+		GameManager.SetOffset(transform.position.x);
 		isAlive=true;
 		reloadedSpan=0.6f;
 		reloadingTime=0;

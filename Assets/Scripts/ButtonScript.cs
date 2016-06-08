@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-
 public class ButtonScript : MonoBehaviour {
 
 	// Use this for initialization
@@ -14,6 +13,11 @@ public class ButtonScript : MonoBehaviour {
 	}
 	public void OnClick(){
 		Debug.Log("Click");
-		Application.LoadLevel("Main");
+		if(tag=="Start")
+			Application.LoadLevel("Main");
+		if(tag=="Outline")
+			Application.LoadLevel("Explain");
+		if(tag=="HowTo")
+			Application.LoadLevel("HowTo");
 	}
 }
