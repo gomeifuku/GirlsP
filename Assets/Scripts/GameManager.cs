@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public GameObject Enemies;
 	public GameObject enemyprefab;
 	public float radius;
+
 	public float totalTime;
 	private float nextPopTime;
 	public static float offsetX;
@@ -18,7 +19,10 @@ public class GameManager : MonoBehaviour {
 	private float nextPopInterval;
 	private float BASESPEED=0.15f;
 	public Text scoreText; //Text用変数
+	public Text highScoreText;
 	private int score; //スコア計算用変数
+	private int highScore=0;
+	private string highScoreKey="HighScore";
 	private int scorePool;
 	public float enemySpeed;
 	// Use this for initialization
@@ -31,7 +35,9 @@ public class GameManager : MonoBehaviour {
 		nextPopInterval=2.0f;
 		radius=4.6f;
 		enemySpeed=BASESPEED;
-		scoreText.text = "Score: 0";
+		scoreText.text = "Score: "+score.ToString();
+		highScore=PlayerPrefs.GetInt(highScoreKey,0);
+		highScoreText.text="Best: "+highScore.ToString();
 		
 		audioSource[0] = this.gameObject.AddComponent<AudioSource>();
         audioSource[1] = this.gameObject.AddComponent<AudioSource>();
@@ -55,8 +61,11 @@ public class GameManager : MonoBehaviour {
 			float accelByScore=0.05f*step;//(score/nextStepScore);
 			enemySpeed=BASESPEED+accelByScore;
 			scoreText.text = "Score: "+score.ToString();
+			highScoreText.text="Best: "+highScore.ToString();
 			totalTime += Time.deltaTime;
 			PopCharManager();
+			if(Input.GetKey(KeyCode.Escape))
+				Application.LoadLevel("Title");
 		
 	}
 	void PopCharManager(){
@@ -83,8 +92,27 @@ public class GameManager : MonoBehaviour {
 		score+=step;
 		scorePool+=step;
 	}
+	public int GetScore(){
+		return score;
+	}
 	static public void SetOffset(float offX){
 		offsetX=offX;
+	}
+	public void SetHighScore(){
+		if(highScore<score){
+			PlayerPrefs.SetInt(highScoreKey, score);
+			highScore=score;
+			//おめでとうてきすぷらいとえふぇくとあってもいいよね
+		}
+	}
+	public void DisplayGameOver(){
+		MyCanvas canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<MyCanvas>();
+		Debug.Log("TBcount::"+canvas.TBcount.ToString());
+		for(int tbNum=canvas.TBcount;tbNum>0;tbNum--){
+
+		   	canvas.SetActive("TB"+tbNum.ToString(), true);
+		}
+
 	}
 
 }

@@ -44,7 +44,7 @@ public class SideScript : MonoBehaviour {
 			warningCount--;
 			cautionCount--;
 		}
-		//Debug.Log("RED::Caution"+cautionCount.ToString()+"Warning:"+warningCount.ToString());
+		Debug.Log("RED::Caution"+cautionCount.ToString()+"Warning:"+warningCount.ToString());
 	}
 	private void CheckStatus(){
 		if(isAlivePlayer){

@@ -13,7 +13,8 @@ public class HowToPlayScript : MonoBehaviour {
 	private StateType state;
 	private string[] scenarios;
 	public Text uiText;
-
+//	private const int NUMSTRINGTITLE;
+//	private const int NUMSTRINGEND;
 	private Arrow arrow;
 	private int currentStep;
 	private float animatedRange=0.2f;

@@ -27,19 +27,7 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		if(isAlive){
-			// if(Physics2D.Raycast(transform.position, transform.forward)){
-			// 	Debug.Log("Ray!");
-			// }
-
-     		// Debug.DrawRay(origin, hit.point - origin, Color.blue, RAY_DISPLAY_TIME, false);
- 
-			//ray=new Ray2D(new Vector2(transform.position.x,transform.position.y), new Vector2(transform.forward.x,transform.forward.y));
-			Debug.DrawRay((Vector2)transform.position, (Vector2)transform.up*5, Color.red);
-			//Debug.DrawLine(transform.position, new Vector3(0,0,0), Color.red);
-			// Debug.DrawRay(new Vector3(transform.position.x,transform.position.y,0), new Vector3(transform.forward.x,transform.forward.y,0)*10,Color.red, 5.0f,false);
-			
+		if(isAlive){Debug.DrawRay((Vector2)transform.position, (Vector2)transform.up*5, Color.red);
 			if(!canFire){
 				reloadingTime+=Time.deltaTime;
 				if(reloadingTime>reloadedSpan){
@@ -67,10 +55,15 @@ public class PlayerController : MonoBehaviour {
 			Debug.Log("yarareta");
 			isAlive=false;
 			sr.sprite=gameoverSprite;
+			Camera.main.gameObject.GetComponent<GameManager>().SetHighScore();
+			Camera.main.gameObject.GetComponent<GameManager>().DisplayGameOver();
+		
 		}
 
 	}
 	void OnGUI() {
+		//FIX::キー入力で戻れるようにしたくね？スプライトで表示
+		//Fix::そもそもそういうことはGameManagerでしね？
 		if(!isAlive){
 			int b_h=40;
 			int b_w=80;
